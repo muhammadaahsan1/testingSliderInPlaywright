@@ -9,30 +9,28 @@ test('test Slider ', async ({ page }) => {
     const bar = frame.locator('[id="green"] div') 
     const pointer = frame.locator('[id="green"] span')
 
-    await bar.evaluate( node => {
-    node.setAttribute('style', 'width: 90%;')
+// test slider with setAttributes (uncomment to run it)
+
+  //   await bar.evaluate( node => {
+  //   node.setAttribute('style', 'width: 90%;')
     
-    })
+  //   })
 
-    await pointer.evaluate(node=>{
-      node.setAttribute('style', 'left: 90%;')
-    })
-    await pointer.click()
+  //   await pointer.evaluate(node=>{
+  //     node.setAttribute('style', 'left: 90%;')
+  //   })
+  //   await pointer.click()
 
-    //test slider with mouse
+//test slider with mouse Mouse movement
 
-    //Mouse movement
-    const tempBox = page.locator('[tabtitle="Temperature"] ngx-temperature-dragger') 
-    await tempBox.scrollIntoViewIfNeeded()
-    const box = await tempBox.boundingBox()
-    const x = box.x + box.width / 2
-    const y = box.y + box.height / 2 
-    await page.mouse.move(x, y) 
+
+    await pointer.scrollIntoViewIfNeeded() //its important that the thing to be slide/moved is in view
+    const colorBoundBox = await pointer.boundingBox()
+    const x = colorBoundBox.x + colorBoundBox.width / 2
+    const y = colorBoundBox.y + colorBoundBox.height / 2 
+    await page.mouse.move(x, y) //center
     await page.mouse.down()
-    await page.mouse.move(x +100, y)
-    await page.mouse.move(x+100, x+100) 
+    await page.mouse.move(x +70, y) //moving from center to 70 points towards x-axis i.e. to the right
     await page.mouse.up()
-    
   
 });
-
